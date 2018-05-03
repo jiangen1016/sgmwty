@@ -1,0 +1,126 @@
+<div class="ibox-title">
+    <div class="bread-crumb float-left">
+        <i class="fa fa-bookmark"> </i>
+        /{{display.Workbench}}/{{display.OutAuthorization}}/{{display.OutAuthorizationDetails}}
+    </div>
+    <div class="ibox-tools float-right">
+        <a href="javascript:;" *ngIf="isCanChange || pageType == 'creat'" (click)="enturstSave()">
+            <i class="fa fa-plus"></i>{{display.Save}}</a>
+        <a href="javascript:;" (click)="goBack()">
+            <i class="fa fa-undo"></i>{{display.back}}</a>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+
+<p-growl></p-growl>
+
+<div class="entrust">
+    <p-messages [(value)]="checkMsgs"></p-messages>
+    <div class="row row-margin">
+        <div class="col-sm-12 row">
+            <div class="col-sm-2  text-right" [ngClass]="{required:pageType == 'creat'}">
+                {{display.Authorizer}}&ngsp;:
+            </div>
+            <div class="col-sm-4" *ngIf=" pageType == 'creat' && isManager">
+                <input class="search-input-long clear-input" type="text" readonly (click)="showChooseDialog('grantorPerson','single')" [(ngModel)]="entrustCreat.grantorName"
+                    name="searchTitle">
+                <i *ngIf="entrustCreat.grantorName" class="fa fa-close input-clear" (click)="clear('surrogateName')"></i>
+            </div>
+            <div class="col-sm-4" *ngIf=" pageType == 'creat' && !isManager">
+                <input class="search-input-long clear-input" type="text" [disabled]="disabled" [(ngModel)]="entrustCreat.grantorName" name="searchTitle">
+            </div>
+            <div class="col-sm-4" *ngIf=" pageType != 'creat'">
+                {{entrustCreat.grantorName}}
+            </div>
+            <div class="col-sm-2 no-padding" *ngIf=" pageType == 'creat' && isManager">
+                <span class="fa fa-search" [ngStyle]="{display: disabled ? 'none' : 'inline-block'}" (click)="showChooseDialog('grantorPerson','single')"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="col-sm-12 row">
+            <div class="col-sm-2  text-right" [ngClass]="{required:pageType == 'creat'}">
+                {{display.AuthorizedPerson}}&ngsp;:
+            </div>
+            <div class="col-sm-4" *ngIf=" pageType == 'creat'">
+                <input class="search-input-long clear-input" type="text" readonly (click)="showChooseDialog('surrogatePerson','single')"
+                    [(ngModel)]="entrustCreat.surrogateName" name="searchTitle">
+                <i *ngIf="entrustCreat.surrogateName" class="fa fa-close input-clear" (click)="clear('surrogateName')"></i>
+            </div>
+            <div class="col-sm-4" *ngIf=" pageType != 'creat'">
+                {{entrustCreat.surrogateName}}
+            </div>
+            <div class="col-sm-2 no-padding" *ngIf=" pageType == 'creat'">
+                <span class="fa fa-search" [ngStyle]="{display: disabled ? 'none' : 'inline-block'}" (click)="showChooseDialog('surrogatePerson','single')"></span>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row row-margin">
+        <div class="col-sm-12 row">
+            <div class="col-sm-2  text-right" [ngClass]="{required:pageType == 'creat'}">
+                {{display.Process}}&ngsp;:
+            </div>
+            <div class="col-sm-4" *ngIf=" pageType == 'creat'">
+                <input class="search-input-long clear-input" type="text" (click)="showChooseDialog('process','multiple')" readonly [(ngModel)]="entrustCreat.applicationFlowDisplayname"
+                    name="searchTitle">
+                <i *ngIf="entrustCreat.applicationFlowDisplayname" class="fa fa-close input-clear" (click)="clear('applicationFlowDisplayname')"></i>
+            </div>
+            <div class="col-sm-4" *ngIf=" pageType != 'creat'">
+                {{entrustCreat.applicationFlowDisplayname}}
+            </div>
+            <div class="col-sm-2 no-padding" *ngIf=" pageType == 'creat'">
+                <span class="fa fa-search" [ngStyle]="{display: disabled ? 'none' : 'inline-block'}" (click)="showChooseDialog('process','multiple')"></span>
+            </div>
+        </div>
+    </div> -->
+    <div class="row row-margin">
+        <div class="col-sm-12 row">
+            <div class="col-sm-2  text-right" [ngClass]="{required:pageType == 'creat'}">
+                {{display.startTime}}&ngsp;:
+            </div>
+            <div class="col-sm-4" *ngIf=" pageType == 'details'">
+                {{entrustCreat.startDate}}
+            </div>
+            <div class="col-sm-4 calendar-row" *ngIf=" pageType == 'creat' || isCanChange">
+                <p-calendar showButtonBar="true" readonlyInput="true" [(ngModel)]="entrustCreat.startDate" name="startDate" dateFormat="yy-mm-dd"
+                    [showIcon]="true"></p-calendar>
+            </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="col-sm-12 row">
+            <div class="col-sm-2  text-right" [ngClass]="{required:pageType == 'creat'}">
+                {{display.endTime}}&ngsp;:
+            </div>
+            <div class="col-sm-4" *ngIf=" pageType == 'details' ">
+                {{entrustCreat.endDate}}
+            </div>
+            <div class="col-sm-4 calendar-row" *ngIf="pageType == 'creat' || isCanChange">
+                <p-calendar showButtonBar="true" readonlyInput="true" [(ngModel)]="entrustCreat.endDate" name="endDate" dateFormat="yy-mm-dd"
+                    [showIcon]="true"></p-calendar>
+            </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="col-sm-12 row">
+            <div class="col-sm-2 text-right">
+                {{display.Remarks}}&ngsp;:
+            </div>
+            <div class="col-sm-4" *ngIf=" pageType == 'creat' || isCanChange">
+                <textarea class="textarea" name="remark" [(ngModel)]="entrustCreat.remark"></textarea>
+            </div>
+            <div class="col-sm-4" *ngIf=" pageType == 'details'">
+                {{entrustCreat.endDate}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog [(visible)]="showChoose" [width]="800" [contentStyle]="{'padding': 0}" [positionTop]="20">
+    <p-header>
+        {{display.Choose}}
+    </p-header>
+    <app-choose-modal [tableData]="tableData" [originData]="tableData" [tableCols]="tableCols" [selectionMode]="selectionMode" (submit)="getChoose($event)"
+        (close)="closeChoose($event)">
+    </app-choose-modal>
+</p-dialog>

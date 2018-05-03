@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+
+// // Import normalize
+// @import "bootstrap/normalize";
+// // Override Boostrap variables
+// @import "bootstrap-variables";
+// // Import Bootstrap source files
+// @import "bootstrap/bootstrap";
+@import './scss/component/header.scss';
+@import './scss/component/footer.scss';
+@import './scss/component/chooseModal.scss';
+@import './scss/component/loading.scss';
+@import './scss/component/choosePerson.scss';
+
+@import './scss/page/app.scss';
+@import './scss/page/applyCreat.scss';
+@import './scss/page/public.scss';
+@import './scss/page/roleConfig.scss';
+@import './scss/page/wordHelp.scss';
+@import './scss/page/entrust.scss';

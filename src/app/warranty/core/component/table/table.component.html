@@ -1,0 +1,40 @@
+<p-dataTable headerCheckboxToggleAllPages="true" frozen="true" #dt [loading]="loading" loadingIcon="fa-spinner" *ngIf="!history && !showFiles"
+    [value]="tableData" sortMode="single" [rows]="10" (onSort)="changeSort($event)" [(selection)]="selectedTable" [emptyMessage]="display.NoResult"
+    (onRowSelect)="selected($event)" (onRowUnselect)="unSelect($event)">
+    <p-column *ngIf="tableConfig && tableConfig.isSelect" [style]="{'width':'38px'}" selectionMode="{{tableConfig.selectionMode}}"></p-column>
+    <p-column *ngFor="let col of tableCols" [style]="{'width':col.width}" [styleClass]="col.left ? 'text-left' : ''" [field]="col.field"
+        [header]="col.header" [sortable]="col.isSort">
+        <ng-template *ngIf="col.date" let-col let-item="rowData" pTemplate="body">
+            {{item[col.field] | dateYMD}}
+        </ng-template>
+        <ng-template *ngIf="col.cellTemplate" let-item="rowData" let-rowIndex="rowIndex" pTemplate="summary">
+            <span>
+                <ng-container *ngTemplateOutlet="col.cellTemplate; context: {$implicit: item, Index: rowIndex}"></ng-container>
+            </span>
+        </ng-template>
+    </p-column>
+</p-dataTable>
+<div *ngIf="!history && !showFiles" class="table-footer ui-widget-header">
+    <p>{{display.PageTotal1 + totalRecords + display.PageTotal2}}</p>
+    <p-paginator pageLinkSize="5" rows="10" [totalRecords]=totalRecords [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event)"></p-paginator>
+    <div style="clear:both"></div>
+</div>
+
+<p-dataTable [lazy]="true" *ngIf="history" [value]="historyData.historyList" [rows]="10">
+    <p-column *ngFor="let col of tableCols" [style]="{width:col.width}" [field]="col.field" [header]="col.header">
+    </p-column>
+    <p-footer>
+        <p>{{display.PageTotal1 + historyData.historyTotal + display.PageTotal2}}</p>
+    </p-footer>
+</p-dataTable>
+
+<p-dataTable [lazy]="true" *ngIf="showFiles" [value]="tableData" [rows]="1000">
+    <p-column *ngFor="let col of tableCols" [style]="{width:col.width}" [styleClass]="col.center ? 'text-center' : ''" [field]="col.field"
+        [header]="col.header">
+        <ng-template *ngIf="col.cellTemplate" let-item="rowData" let-rowIndex="rowIndex" pTemplate="summary">
+            <span>
+                <ng-container *ngTemplateOutlet="col.cellTemplate; context: {$implicit: item, Index: rowIndex}"></ng-container>
+            </span>
+        </ng-template>
+    </p-column>
+</p-dataTable>

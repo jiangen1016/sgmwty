@@ -1,0 +1,119 @@
+<div class="ibox-title">
+    <div class="bread-crumb float-left">
+        <i class="fa fa-bookmark"> </i>
+        /{{display.ApplicationConfiguration}}/{{display.RoleConfiguration}}/{{display.RoleMember}}
+    </div>
+    <div class="ibox-tools float-right">
+        <a href="javascript:;" class="close-btn">
+            <i class="fa fa-chevron-up"></i>{{display.Shrink}}</a>
+        <a href="javascript:;" (click)="openModal('','create')">
+            <i class="fa fa-plus"></i>{{display.Add}}</a>
+        <a href="javascript:;" (click)="getRoleMemberList()">
+            <i class="fa fa-refresh"></i>{{display.Refresh}}</a>
+        <a href="javascript:;" (click)="goBack()">
+            <i class="fa fa-undo"></i>{{display.back}}</a>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+
+<p-confirmDialog header="Attention" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+<form class="search-grounp-public">
+    <div class="row col-sm-12 row-margin">
+        <div class="col-sm-6 row">
+            <div class="col-sm-4 search-title">
+                {{display.Name}}
+            </div>
+            <div class="col-sm-6">
+                <input class="search-input-long" type="text" name="userName" [(ngModel)]="roleMemberListPage.userName" (keyup.enter)="getRoleMemberList()">
+            </div>
+        </div>
+        <!-- <div class="col-sm-6 row">
+            <div class="col-sm-4 search-title">
+                {{display.Process}}
+            </div>
+            <div class="col-sm-6">
+                <input class="search-input-long" type="text" name="documentCode" [(ngModel)]="roleMemberListSearch.documentName" (keyup.enter)="getRoleMemberList()">
+            </div>
+        </div> -->
+    </div>
+
+    <div class="text-center col-sm-12 search-buttons">
+        <button class="btn btn-dafault" pButton type="button" label="{{display.Search}}" (click)="getRoleMemberList()"></button>
+        <button class="btn btn-dafault" pButton type="button" label="{{display.Reset}}" (click)="reset()"></button>
+    </div>
+</form>
+
+<div class="my-table">
+    <app-dreams-table [loading]="loading" [tableConfig]="tableConfig" [tableCols]="tableCols" [tableData]="tableData" [totalRecords]="totalRecords"
+        (deleteItem)="deleteItem($event)" (pageParams)="tableGetPage($event)"></app-dreams-table>
+</div>
+
+
+<div bsModal [config]="modalConfig" #PersonAddModal="bs-modal" class="modal modal-key fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-primary modal-lg" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5>{{mergeType === 'create' ? display.AddRoleMember : display.UpdateRoleMember}}</h5>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalClose()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-body  no-padding">
+                    <form #roleMemberForm="ngForm">
+                        <div class="form-group">
+                            <div class="col-sm-12 row row-line text-center">
+                                <div class="col-sm-10 row " style="margin: 0.5rem;">
+                                    <div class="col-sm-4 no-padding color-title">角色名称</div>
+                                    <div class="col-sm-6">
+                                        <input class="clear-input" type="text" name="roleName" readonly [(ngModel)]="roleMember.roleName">
+                                    </div>
+                                </div>
+                                <div class="col-sm-10 row " style="margin: 0.5rem;">
+                                    <div class="col-sm-4 no-padding color-title required">{{display.Name}}</div>
+                                    <div class="col-sm-6">
+                                        <input type="text" readonly name="userName" [(ngModel)]="roleMember.userName" (click)="this.showChoose = true">
+                                        <i *ngIf="roleMember.userName" class="fa fa-close input-clear" (click)="clear('userName')"></i>
+                                    </div>
+                                    <div class="col-sm-2 no-padding">
+                                        <span class="fa fa-search" style="float: left;margin-top: 7px;" (click)="this.showChoose = true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center">
+                    <button pButton type="button" (click)="merge(mergeType)" label="{{display.Confirm}}"></button>
+                    <button pButton type="button" (click)="modalClose()" class="ui-button-secondary" label="{{display.Cancle}}"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ChooseDialog -->
+<p-dialog [(visible)]="showChoose" [width]="800" [contentStyle]="{'padding': 0}" [positionTop]="20">
+    <p-header>
+        {{display.choosePerson}}
+    </p-header>
+    <app-choose-person (selectPerson)="selectPerson($event)" (cancleEvent)="cancleEvent($event)"></app-choose-person>
+</p-dialog>
+
+<!-- <p-dialog [(visible)]="showProcess" [width]="500" [contentStyle]="{'padding': 0}" [positionTop]="20">
+    <p-header>
+        {{display.Choose}}
+    </p-header>
+    <app-choose-modal [tableData]="tableProcessData" [originData]="tableProcessData" [tableCols]="tableProcessCols" [selectionMode]="selectionMode"
+        (submit)="getChooseProcess($event)" (close)="closeChoose()">
+    </app-choose-modal>
+</p-dialog> -->
+
+<!-- 操作 -->
+<ng-template #opationCell let-dataItem let-rowIndex="rowIndex">
+    <button pButton type="button" (click)="openModal(dataItem,'edit')" icon="fa-pencil" title="编辑"></button>
+    <button pButton type="button" (click)="deleteItem(dataItem)" icon="fa-close" title="删除"></button>
+</ng-template>

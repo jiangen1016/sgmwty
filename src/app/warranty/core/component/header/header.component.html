@@ -1,0 +1,15 @@
+<div id="header" class="background-defaults">
+    <div class="logo float-left">
+        <img src="assets/img/header/dreams_logo.png" alt="logo">
+    </div>
+    <div class="menu-back float-left">
+        <i class="heaer-toggle fa fa-angle-left"></i>
+    </div>
+    <div class="menu-out float-right">
+        <i class="heaer-back fa fa-sign-out" (click)="loginOut()"></i>
+    </div>
+    <div class="menu-user float-right">
+        <img style="width:25px;cursor:pointer;" [src]="imgUrl" alt="" (click)="languageChange()">
+    </div>
+    <div class="menu-user float-right">{{display.Welcome}}，{{userInfo.userName || ""}}</div>
+</div>

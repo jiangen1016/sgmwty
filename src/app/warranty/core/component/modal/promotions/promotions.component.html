@@ -1,0 +1,236 @@
+<div class="tool-button">
+    <button pButton type="button" label="Submit" [disabled]="disabled" *ngIf="pageType  === 'create' && !taskData.canDeny && !isManager"
+        icon="fa-check" (click)="formSubmit('submit')"></button>
+    <button pButton type="button" label="Submit" *ngIf="pageType  === 'approve' || taskData.canDeny" icon="fa-check" (click)="approve()"></button>
+    <button pButton type="button" label="Cancel" *ngIf="taskData && taskData.editApprove" icon="fa-trash-o" (click)="delete()"></button>
+    <button pButton type="button" label="Save" [disabled]="disabled" icon="fa-save" *ngIf="(pageType === 'create' && !taskData.canDeny && !isManager) || isHistory "
+        (click)="formSubmit('save')"></button>
+    <!-- <button pButton type="button" class="prinsBtn" label="Print" icon="fa-print" (click)="print()" *ngIf="pageType  === 'detail'"></button> -->
+    <button pButton type="button" label="Close" icon="fa-close" (click)="modalClose()"></button>
+</div>
+
+<!-- <p-confirmDialog header="Attention" icon="fa fa-question-circle" width="425"></p-confirmDialog> -->
+
+<div class=" modal-dialog modal-primary modal-lg-default" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div></div>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalClose()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="print-body">
+            <div class="modal-body">
+                <!-- <p-messages [(value)]="checkMsgs"></p-messages> -->
+                <div class="form-group no-padding col-sm-12 first-body">
+                    <div class="form-logo"></div>
+                    <div class="form-title modal-border">
+                        <div class="form-title-h2">
+                            <h2>{{display.PromotionsTitle}}</h2>
+                        </div>
+                        <div class="col-sm-12 row row-line">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4 row">
+                                <label class="text-right col-sm-6  color-title">{{display.DocumentNo}}：</label>
+                                <div class="col-sm-6 text-left">{{promotionsSave.documentNumber}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row row-line">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4 row">
+                                <label class="text-right col-sm-6  color-title">{{display.Initiator}}：</label>
+                                <div class="col-sm-6 text-left" *ngIf="pageType === 'create'  && !isManager">{{userInfo?.userName}}</div>
+                                <div class="col-sm-6 text-left" *ngIf="pageType === 'detail' || pageType  === 'approve' || (pageType === 'create'  && isManager)">{{promotionsSave.creatorName}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row row-line">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4 row" *ngIf="pageType === 'create'">
+                                <label class="required text-right col-sm-6  color-title">{{display.Phone}}：</label>
+                                <input class="title-input col-sm-6" [(ngModel)]="promotionsSave.phone" type="number" oninput="if(value.length>11)value=value.slice(0,11)">
+                            </div>
+                            <div class="col-sm-4 row" *ngIf="pageType === 'detail' || pageType  === 'approve'">
+                                <label class="text-right col-sm-6  color-title">{{display.Phone}}：</label>
+                                <div class="col-sm-6 text-left">{{promotionsSave.phone}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row" style="margin: 5px !important;">
+                            <div class="col-sm-8 flex" *ngIf="pageType === 'create'">
+                                <div class="col-sm-2 text-right important">
+                                    <span class="required blue">{{display.Title}}：</span>
+                                </div>
+                                <div class="col-sm-10 title">
+                                    <input [disabled]="disabled" type="text" maxlength="50" placeholder="{{display.Title}}" [(ngModel)]="promotionsSave.title">
+                                </div>
+                            </div>
+                            <div class="col-sm-8 flex" *ngIf="pageType === 'detail' || pageType  === 'approve'">
+                                <div class="col-sm-2 text-right important">
+                                    <span class="blue">{{display.Title}}：</span>
+                                </div>
+                                <div class="col-sm-10">
+                                    <div>{{promotionsSave.title}}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 row">
+                                <label class="text-right col-sm-6  color-title">{{display.ApplicationDate}}：</label>
+                                <div class="col-sm-6 text-left">{{promotionsSave.creationDate | dateYMD}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body modal-main-content">
+                <p-tabView>
+                    <p-tabPanel header="{{display.ApplicatioCcolumn}}">
+                        <!-- create -->
+                        <p-accordion [multiple]="true" *ngIf="pageType === 'create'">
+                            <p-accordionTab header="{{display.BusinessApplication}}" [selected]="true" icon="fa fa-fw fa-plus">
+                                <div class="form-body  no-padding">
+                                    <div class="col-sm-12 row row-line">
+                                        <div class="col-sm-6 row">
+                                            <div class="col-sm-4 no-padding color-title required">{{display.Brand}}：</div>
+                                            <div class="col-sm-6">
+                                                <!-- <input disabled name="businessCategory" [(ngModel)]="kdQuotation.businessCategory"> -->
+                                                <select [disabled]="disabled" name="businessCategory" id="" [(ngModel)]="promotionsSave.brandCode">
+                                                    <option [value]=""></option>
+                                                    <option *ngFor="let item of brandList" [value]="item.brandName">{{item.brandName}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 row ">
+                                            <div class="col-sm-4 no-padding color-title required">{{display.Amount}}：</div>
+                                            <div class="col-sm-6">
+                                                <input class="clear-input" [disabled]="disabled" type="number" [(ngModel)]="promotionsSave.amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 row row-line">
+                                        <div class="col-sm-6 row">
+                                            <div class="col-sm-4 no-padding color-title required" style="padding-right:10px;">{{display.PrNo}}：</div>
+                                            <div class="col-sm-6">
+                                                <input class="clear-input" type="text" [(ngModel)]="promotionsSave.prNo">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 row row-line">
+                                        <div class="col-sm-2  color-title " style="padding-right:10px;">{{display.Remark}}:</div>
+                                        <div class="col-sm-10" style="margin-left:-10px;">
+                                            <textarea style="width:80%;" name="" id="" [(ngModel)]="promotionsSave.remark"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-accordionTab>
+
+                            <p-accordionTab [ngClass]="{file:pageType == 'create'}" header="{{display.AttachmentList}}" [selected]="true" icon="fa fa-plus">
+                                <app-file-upload #filesControl [uploadConfig]="uploadConfig" [uploadedFiles]="uploadedFiles" (_onUploadSuccess)="onUploadSuccess($event)"
+                                    (_onFilesRemove)="onFilesRemove($event)"></app-file-upload>
+                            </p-accordionTab>
+                        </p-accordion>
+                        <!-- detail -->
+                        <p-accordion [multiple]="true" *ngIf="pageType === 'detail' ||  pageType  === 'approve'">
+                            <p-accordionTab header="{{display.BusinessApplication}}" [selected]="true" icon="fa fa-fw fa-plus">
+                                <div class="form-body  no-padding">
+                                    <div class="col-sm-12 row row-line">
+                                        <div class="col-sm-6 row">
+                                            <div class="col-sm-4 no-padding color-title ">{{display.Brand}}：</div>
+                                            <div class="col-sm-6">
+                                                {{promotionsSave.brandCode}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 row ">
+                                            <div class="col-sm-4 no-padding color-title ">{{display.Amount}}：</div>
+                                            <div class="col-sm-6">
+                                                {{promotionsSave.amount}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 row row-line">
+                                        <div class="col-sm-6 row">
+                                            <div class="col-sm-4 no-padding color-title " style="padding-right:10px;">{{display.PrNo}}：</div>
+                                            <div class="col-sm-6">
+                                                {{promotionsSave.prNo}}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 row row-line">
+                                        <div class="col-sm-2  color-title " style="padding-right:10px;">{{display.Remark}}:</div>
+                                        <div class="col-sm-10" style="margin-left:-10px;">
+                                            <div>{{promotionsSave.remark}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-accordionTab>
+                            <p-accordionTab header="{{display.AttachmentList}}" [selected]="true" icon="fa fa-plus">
+                                <ul *ngIf="uploadedFiles?.length">
+                                    <li *ngFor="let attachment of uploadedFiles">
+                                        <a [href]="attachment.downloadUrl">{{attachment.attachmentName}}</a>
+                                    </li>
+                                </ul>
+                            </p-accordionTab>
+                        </p-accordion>
+                    </p-tabPanel>
+                    <!-- 如果是审批   审批列表  -->
+                    <p-tabPanel header="{{display.ApprovalColumn}}" [selected]="true" *ngIf="pageType  === 'approve' || pageType === 'detail'">
+                        <p-accordion [multiple]="true">
+                            <p-accordionTab [selected]="true" header="{{display.ApprovalOperation}}" icon="fa fa-plus">
+                                <div class="form-body">
+                                    <div class="col-sm-12 row row-line" *ngIf="pageType  === 'approve'">
+                                        <div class=" col-sm-2 no-padding color-title ">{{display.ApprovalDecision}}:</div>
+                                        <div class="col-sm-10 row radio-label ">
+
+                                            <div class="col-sm-10 ">
+                                                <p-radioButton name="groupname " label="Approve " value="APPROVE" [(ngModel)]="promotionApprove.selectedValue "></p-radioButton>
+                                            </div>
+                                            <div class="col-sm-10 ">
+                                                <p-radioButton name="groupname " label="Return " value="RETURN" [(ngModel)]="promotionApprove.selectedValue "></p-radioButton>
+                                            </div>
+                                            <div class="col-sm-10 ">
+                                                <p-radioButton name="groupname " label="Deny " value="REJECT" [(ngModel)]="promotionApprove.selectedValue "></p-radioButton>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 row row-line " *ngIf="pageType  === 'approve'">
+                                        <div class="col-sm-2 no-padding color-title ">{{display.Remarks}}:</div>
+                                        <div class="col-sm-10 ">
+                                            <textarea [(ngModel)]="promotionApprove.approvalComment " name=" " id="
+                                        " cols="70 " rows="10 "></textarea>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-sm-12 row row-line " *ngIf="taskData.canDeny ">
+                                                <div class="col-sm-2 no-padding color-title ">{{display.Remarks}}:</div>
+                                                <div class="col-sm-10 ">
+                                                    <textarea [(ngModel)]=" this.kdQuotation.remark " name=" " id="
+                                        " cols="70 " rows="10 "></textarea>
+                                                </div>
+                                            </div> -->
+                                    <div class="col-sm-12 row row-line ">
+                                        <div class="col-sm-2 no-padding color-title ">Current Person:</div>
+                                        <div class="col-sm-10 ">
+                                            {{ taskData.assigneeName }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 row row-line ">
+                                        <div class="col-sm-2 no-padding color-title ">Current Activity:</div>
+                                        <div class="col-sm-10 ">
+                                            {{taskData.nodeName}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-accordionTab>
+                            <p-accordionTab class="my-table " [selected]="true " [header]="display.HistoricalApprovalRecord
+                                        " icon="fa fa-plus ">
+                                <app-dreams-table [history]="history " [historyData]="historyData " [tableCols]="historyTableCols "></app-dreams-table>
+                            </p-accordionTab>
+                        </p-accordion>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+        </div>
+    </div>
+</div>

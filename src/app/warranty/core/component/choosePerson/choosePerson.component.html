@@ -1,0 +1,56 @@
+<div class="col-sm-12 row" style="margin-right: 0px;margin-left: 0px; height:100%;">
+    <div class="col-sm-5" style="height: calc(100% - 3rem)">
+        <div class="choosePerson-header text-center">{{display.Unchoose}}</div>
+        <div class="" style="display: flex;margin-bottom: 1rem;">
+            <input type="text" style="flex:1" [(ngModel)]="empInfoListSearch.displayName" name="empUid" (keyup.enter)="searchLeft()">
+            <button pButton type="button" label="{{display.Search}}" (click)="searchLeft()"></button>
+        </div>
+        <div #scroller class="scroller" style="height: 400px;overflow-y:auto" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50"
+            [scrollWindow]="false" (scrolled)="onscroll()">
+
+            <p-dataTable #sourceTable [value]="sourceData" [(selection)]="selectedItem " (onRowSelect)="showSelect($event) ">
+                <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                <p-column *ngFor="let col of tableCols" [field]="col.field " [header]="col.header " [style]="{width:col.width}"></p-column>
+            </p-dataTable>
+        </div>
+
+    </div>
+
+    <div class="col-sm-2 choosePerson-btns">
+        <div class="text-center">
+            <div class="choosePerson-btn">
+                <button type="button" class="btn btn-primary btn-sm" (click)="allToRight()">&gt;&gt;</button>
+            </div>
+            <div class="choosePerson-btn">
+                <button type="button" class="btn btn-primary btn-sm" (click)="toRight()">&gt;</button>
+            </div>
+            <div class="choosePerson-btn">
+                <button type="button" class="btn btn-primary btn-sm" (click)="toLeft()">&lt;</button>
+            </div>
+            <div class="choosePerson-btn">
+                <button type="button" class="btn btn-primary btn-sm" (click)="allToLeft()">&lt;&lt;</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-5">
+        <div class="choosePerson-header text-center">{{display.Chosen}}</div>
+        <div class="" style="display: flex;margin-bottom: 1rem;">
+            <input type="text" style="flex:1" [(ngModel)]="searchTarget" name="searchTarget" (keyup.enter)="searchRight()">
+            <button pButton type="button" label="{{display.Search}}" (click)="searchRight()"></button>
+        </div>
+        <div class="scroller" style="height: 400px;overflow-y:auto" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50"
+            [scrollWindow]="false">
+            <p-dataTable [value]="targetData" [(selection)]="selectedItem" (onRowSelect)="showSelect($event) ">
+                <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                <p-column *ngFor="let col of tableCols" [field]="col.field " [header]="col.header " [style]="{width:col.width}"></p-column>
+            </p-dataTable>
+        </div>
+    </div>
+    <div class="choosePerson-footer text-center">
+        <div class="footer-btn">
+            <button pButton type="button" (click)="selected()" label="{{display.Confirm}}"></button>
+            <button pButton type="button" (click)="cancle()" label="{{display.Cancle}}" class="ui-button-secondary"></button>
+        </div>
+    </div>
+</div>

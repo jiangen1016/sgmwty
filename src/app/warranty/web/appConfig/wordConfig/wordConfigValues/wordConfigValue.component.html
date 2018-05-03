@@ -1,0 +1,95 @@
+<div class="ibox-title">
+    <div class="bread-crumb float-left">
+        <i class="fa fa-bookmark"> </i>
+        /{{display.ApplicationConfiguration}}/{{display.DictionaryDetails}}
+    </div>
+    <div class="ibox-tools float-right">
+        <a href="javascript:;" class="close-btn">
+            <i class="fa fa-chevron-up"></i>{{display.Shrink}}</a>
+        <a href="javascript:;" (click)="openModal()">
+            <i class="fa fa-plus"></i>{{display.Add}}</a>
+        <a href="javascript:;" (click)="getWordConfigValueList()">
+            <i class="fa fa-refresh"></i>{{display.Refresh}}</a>
+        <a href="javascript:;" (click)="goBack()">
+            <i class="fa fa-undo"></i>{{display.back}}</a>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+
+<p-growl></p-growl>
+<p-confirmDialog header="Attention" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+<form class="search-grounp-public">
+    <div class="row col-sm-12 row-margin">
+        <div class="col-sm-6 row">
+            <div class="col-sm-4 search-title">
+                {{display.Code}}
+            </div>
+            <div class="col-sm-6">
+                <input class="search-input-long" type="text" [(ngModel)]="wordConfigValueListSearch.lookupCode" name="lookupCode" (keyup.enter)="getWordConfigValueList()">
+            </div>
+        </div>
+        <div class="col-sm-6 row">
+            <div class="col-sm-4 search-title">
+                {{display.name}}
+            </div>
+            <div class="col-sm-6">
+                <input type="text" class="search-input-long" [(ngModel)]="wordConfigValueListSearch.meaning" name="meaning" (keyup.enter)="getWordConfigValueList()">
+            </div>
+        </div>
+    </div>
+    <div class="text-center col-sm-12 search-buttons">
+        <button class="btn btn-dafault" pButton type="button" label="{{display.Search}}" (click)="getWordConfigValueList()"></button>
+        <button class="btn btn-dafault" pButton type="reset" label="{{display.Reset}}"></button>
+    </div>
+</form>
+<div class="my-table">
+    <app-dreams-table [loading]="loading" [tableConfig]="tableConfig" [tableCols]="tableCols" [tableData]="tableData" [totalRecords]="totalRecords"
+        (editItem)="editItem($event)" (deleteItem)="deleteItem($event)" (pageParams)="tableGetPage($event)"></app-dreams-table>
+</div>
+
+<div bsModal [config]="modalConfig" #WordConfigValueModal="bs-modal" class="modal modal-key fade" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-primary modal-lg" style="width:1000px;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>{{mergeType === 'create' ? display.AddDictionaryDetails : display.UpdateDictionaryDetails}}</h5>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalClose()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-body  no-padding">
+                    <form #wordConfigForm="ngForm">
+                        <div class="form-group">
+                            <div class="col-sm-12 row row-line">
+                                <div class="col-sm-6 row">
+                                    <div class="col-sm-4 no-padding color-title required">{{display.Code}}</div>
+                                    <div class="col-sm-6">
+                                        <input type="text" [disabled]="mergeType === 'update'" [(ngModel)]="wordConfigValue.lookupCode" name="lookupType">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 row ">
+                                    <div class="col-sm-4 no-padding color-title required">{{display.name}}</div>
+                                    <div class="col-sm-6">
+                                        <input type="text" [(ngModel)]="wordConfigValue.meaning" name="meaning">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button pButton type="button" (click)="merge(mergeType)" label="{{display.Confirm}}"></button>
+                <button pButton type="button" (click)="modalClose()" label="{{display.Cancle}}" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 操作 -->
+<ng-template #opationCell let-dataItem let-rowIndex="rowIndex">
+    <button pButton type="button" (click)="editItem(dataItem)" icon="fa-pencil" title="编辑"></button>
+    <button pButton type="button" (click)="deleteItem(dataItem)" icon="fa-close" title="删除"></button>
+</ng-template>

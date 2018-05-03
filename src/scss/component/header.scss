@@ -1,0 +1,57 @@
+app-dreams-header {
+    #header {
+        position: fixed;
+        z-index: 100;
+        width: 100%;
+        height: 55px;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+        padding: 0 !important;
+        .logo {
+            height: 55px;
+            width: 250px;
+            background: #1968ad;
+            img {
+                display: block;
+                width: 175px;
+                height: 50px;
+                margin: 8px 32.5px;
+            }
+        }
+        .menu-back {
+            // cursor: pointer;
+            display: inline-block;
+            vertical-align: middle;
+            height: 36px;
+            margin: 10px 20px;
+            position: relative;
+            top: 0px;
+            color: #5f666c;
+            cursor: pointer;
+            &:hover {
+                i {
+                    // transform: scale(1.2);
+                }
+            }
+            i {
+                transition: all 0.3s;
+                font-size: 36px;
+            }
+        }
+        .menu-out {
+            margin: 18px 5px 6px 25px;
+            cursor: pointer;
+            &:hover {
+                i {
+                    color: #2f8ee5;
+                }
+            }
+            i {
+                font-size: 23px;
+                transition: all 0.3s;
+            }
+        }
+        .menu-user {
+            margin: 18px 5px 6px 25px;
+        }
+    }
+}

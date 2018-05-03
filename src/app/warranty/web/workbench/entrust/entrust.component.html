@@ -1,0 +1,125 @@
+<div class="ibox-title">
+    <div class="bread-crumb float-left">
+        <i class="fa fa-bookmark"> </i>
+        /{{display.Workbench}}/{{display.OutAuthorization}}
+    </div>
+    <div class="ibox-tools float-right">
+        <a href="javascript:;" class="close-btn">
+
+            <i class="fa fa-chevron-up"></i>{{display.Shrink}}</a>
+        <a href="javascript:;" (click)="goNew()">
+            <i class="fa fa-plus"></i>{{display.Add}}</a>
+        <a href="javascript:;" (click)="search()">
+            <i class="fa fa-refresh"></i>{{display.Refresh}}</a>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+
+<p-growl></p-growl>
+<p-confirmDialog header="Attention" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+<form class="search-grounp-public">
+    <div class="row col-sm-12 row-margin">
+        <div class="col-sm-6 row search-title">
+            <div class="col-sm-4">
+                {{display.Authorizer}}
+            </div>
+            <div class="col-sm-6">
+                <input class="search-input-long" type="text" name="grantorUid" [(ngModel)]="entrustSearch.grantorName" (keyup.enter)="search()">
+            </div>
+        </div>
+        <div class="col-sm-6 row">
+            <div class="col-sm-4 search-title">
+                {{display.AuthorizedPerson}}
+            </div>
+            <div class="col-sm-6">
+                <input type="text" class="search-input-long" name="surrogateUid" [(ngModel)]="entrustSearch.surrogateName" (keyup.enter)="search()">
+            </div>
+        </div>
+    </div>
+
+    <div class="row col-sm-12 row-margin">
+        <div class="col-sm-6 row">
+            <div class="col-sm-4 search-title">
+                {{display.StartDate}}
+            </div>
+            <div class="col-sm-6 row calendar-row">
+                <div class="col-sm-6">
+                    <p-calendar showButtonBar="true" [(ngModel)]="entrustSearch.startBegDate" dateFormat="yy-mm-dd" [showIcon]="true" name="startDate1"></p-calendar>
+                </div>
+                <div class="col-sm-6">
+                    <p-calendar showButtonBar="true" [(ngModel)]="entrustSearch.startEndDate" dateFormat="yy-mm-dd" [showIcon]="true" name="endDate1"></p-calendar>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 row">
+            <div class="col-sm-4 search-title">
+                {{display.EndDate}}
+            </div>
+            <div class="col-sm-6 row calendar-row">
+                <div class="col-sm-6">
+                    <p-calendar showButtonBar="true" [(ngModel)]="entrustSearch.endBegDate" dateFormat="yy-mm-dd" [showIcon]="true" name="startDate2"></p-calendar>
+                </div>
+                <div class="col-sm-6">
+                    <p-calendar showButtonBar="true" [(ngModel)]="entrustSearch.endOverDate" dateFormat="yy-mm-dd" [showIcon]="true" name="endDate2"></p-calendar>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row col-sm-12 row-margin">
+        <!-- <div class="col-sm-6 row">
+                <div class="col-sm-4 search-title">
+                    {{display.Application}}
+                </div>
+                <div class="col-sm-6">
+                    <input class="search-input-long" type="text" name="applicationName" [(ngModel)]="entrustSearch.applicationName" (keyup.enter)="search()">
+                </div>
+            </div> -->
+        <div class="col-sm-6 row">
+            <div class="col-sm-4 search-title">
+                {{display.Status}}
+            </div>
+            <div class="col-sm-6">
+                <select name="status" id="" [(ngModel)]="entrustSearch.status">
+                    <option [value]=""></option>
+                    <option [value]="'VALID'">VALID</option>
+                    <option [value]="'INVALID'">INVALID</option>
+                    <option [value]="'EXPIRED'">EXPIRED</option>
+                    <option [value]="'DELETE'">DELETE</option>
+
+                    <!-- <option *ngFor="let item of entrustStatus" [value]="item.lookupCode">{{item.lookupCode}}</option> -->
+                </select>
+            </div>
+        </div>
+        <!-- <div class="col-sm-6 row">
+                <div class="col-sm-4 search-title">
+                    {{display.Process}}
+                </div>
+                <div class="col-sm-6">
+                    <select name="Process" id="" [(ngModel)]="entrustSearch.applicationFlow">
+                        <option value=""></option>
+                        <option *ngFor="let item of entrustProcess" [value]="item.documentCode">{{item.documentName}}</option>
+                    </select>
+                </div>
+            </div> -->
+    </div>
+
+    <div class="text-center col-sm-12 search-buttons">
+        <button class="btn btn-dafault" pButton type="button" label="{{display.Search}}" (click)="search()"></button>
+        <button class="btn btn-dafault" pButton type="reset" label="{{display.Reset}}"></button>
+    </div>
+</form>
+
+
+<div class="my-table">
+    <app-dreams-table [loading]="loading" [totalRecords]="totalRecords" [tableData]="tableData" [tableCols]="tableCols" (pageParams)="tableGetPage($event)"></app-dreams-table>
+</div>
+
+<!-- 操作 -->
+<ng-template #opationCell let-dataItem let-rowIndex="rowIndex">
+    <button pButton type="button" (click)="editItem(dataItem)" icon="fa-pencil" title="编辑"></button>
+    <button pButton type="button" (click)="deleteItem(dataItem)" icon="fa-close" title="删除"></button>
+</ng-template>
+<!-- <iframe frameborder=0 width=170 height=100 marginheight=0 marginwidth=0 scrolling=no src=http://www.163.com>
+</iframe> -->
+<!-- <iframe width=100% height=100% marginheight=0 marginwidth=0 scrolling=no src="http://universedev.saic-gm.com/bpmum/bpmumweb/em/out-office!newExecute.do?request_locale=zh_CN&locale=zh&menuName=%E5%A4%96%E5%87%BA%E6%8E%88%E6%9D%83"></iframe> -->

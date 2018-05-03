@@ -1,0 +1,23 @@
+entrust-new {
+    .entrust {
+        margin-top: 40px;
+        .row {
+            margin: 0 !important;
+        }
+        .row-margin {
+            margin-bottom: 5px;
+            input,
+            textarea {
+                width: 100%;
+            }
+            .textarea {
+                min-height: 50px;
+            }
+        }
+        .calendar-row {
+            input {
+                width: 93%;
+            }
+        }
+    }
+}

@@ -1,0 +1,193 @@
+<div class="tool-button">
+    <button pButton type="button" label="Submit" *ngIf="pageType  === 'approve'" icon="fa-check" (click)="approve()"></button>
+    <!-- <button pButton type="button" class="prinsBtn" label="Print" icon="fa-print" (click)="print()" *ngIf="pageType  === 'detail'"></button> -->
+    <button pButton type="button" label="Close" icon="fa-close" (click)="modalClose()"></button>
+</div>
+<div class=" modal-dialog modal-primary modal-lg-default" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div></div>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalClose()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="print-body">
+            <div class="modal-body">
+                <div class="form-group no-padding col-sm-12 first-body">
+                    <div class="form-logo"></div>
+                    <div class="form-title modal-border">
+                        <div class="form-title-h2">
+                            <h2>{{display.ScenceTitle}}</h2>
+                        </div>
+                        <div class="col-sm-12 row row-line">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4 row">
+                                <label class="text-right col-sm-6  color-title">{{display.DocumentNo}}：</label>
+                                <div class="col-sm-6 text-left">{{scenceDetails.documentNumber}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row row-line">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4 row">
+                                <label class="text-right col-sm-6  color-title">{{display.Initiator}}：</label>
+                                <div class="col-sm-6 text-left">{{scenceDetails.creatorName}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row row-line">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4 row">
+                                <label class="text-right col-sm-6  color-title">{{display.Phone}}：</label>
+                                <div class="col-sm-6 text-left">{{scenceDetails.phone}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row" style="margin: 5px !important;">
+                            <div class="col-sm-8 flex">
+                                <div class="col-sm-2 text-right important">
+                                    <span class="blue">{{display.Title}}：</span>
+                                </div>
+                                <div class="col-sm-10">
+                                    <div>{{scenceDetails.title}}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 row">
+                                <label class="text-right col-sm-6  color-title">{{display.ApplicationDate}}：</label>
+                                <div class="col-sm-6 text-left">{{scenceDetails.creationDate}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body modal-main-content">
+                <p-tabView>
+                    <p-tabPanel header="{{display.ApplicatioCcolumn}}">
+                        <!-- create -->
+                        <p-accordion [multiple]="true">
+                            <p-accordionTab header="{{display.BusinessApplication}}" [selected]="true" icon="fa fa-fw fa-plus">
+                                <div class="form-body  no-padding">
+                                    <div class="col-sm-12 row row-line">
+                                        <div class="col-sm-4 row">
+                                            <div class="col-sm-4 no-padding color-title ">{{display.CustomerCode}}：</div>
+                                            <div class="col-sm-6">
+                                                {{scenceDetails.customerCode}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 row ">
+                                            <div class="col-sm-4 no-padding color-title ">{{display.Suopei}}：</div>
+                                            <div class="col-sm-6">
+                                                {{scenceDetails.claimCode}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 row ">
+                                            <div class="col-sm-4 no-padding color-title ">{{display.Brand}}：</div>
+                                            <div class="col-sm-6">
+                                                {{scenceDetails.brandCode}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 row row-line">
+                                        <div class="col-sm-4 row">
+                                            <div class="col-sm-4 no-padding color-title ">{{display.Jiancheng}}：</div>
+                                            <div class="col-sm-6">
+                                                {{scenceDetails.customerName}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 row ">
+                                            <div class="col-sm-4 no-padding color-title ">{{display.AuditDate}}：</div>
+                                            <div class="col-sm-6">
+                                                {{scenceDetails.auditDate}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 row ">
+                                            <div class="col-sm-4 no-padding color-title ">{{display.TaskNumber}}：</div>
+                                            <div class="col-sm-6">
+                                                {{scenceDetails.taskNumber}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 row row-line">
+                                        <div class="col-sm-4 row">
+                                            <div class="col-sm-4 no-padding color-title ">{{display.Discount}}：</div>
+                                            <div class="col-sm-6">
+                                                {{scenceDetails.discount}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 row ">
+                                            <div class="col-sm-4 no-padding color-title ">{{display.PenaltAmount}}：</div>
+                                            <div class="col-sm-6">
+                                                {{scenceDetails.penaltAmount}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="width:100%;display:flex;">
+                                        <div class="no-padding color-title" style="width:11.11%">{{display.Remark}}:</div>
+                                        <span style="padding:0 15px;"> {{scenceDetails.remark}}</span>
+                                    </div>
+                                </div>
+                            </p-accordionTab>
+
+                            <p-accordionTab [ngClass]="{file:pageType=='create' } " header="{{display.AttachmentList}}" [selected]="true
+                                            " icon="fa fa-plus ">
+                                <app-dreams-table [tableData]="docFiles" [tableCols]="tableCols" [showFiles]="true "></app-dreams-table>
+                            </p-accordionTab>
+                        </p-accordion>
+                    </p-tabPanel>
+                    <!-- 如果是详情  我的申请  申请单跟踪 流程转接 -->
+                    <p-tabPanel header="{{display.ApprovalColumn}} " [selected]="true " *ngIf="pageType==='approve' || pageType === 'detail' ">
+                        <p-accordion [multiple]="true ">
+                            <p-accordionTab [selected]="true " header="{{display.ApprovalOperation}} " icon="fa fa-plus ">
+                                <div class="form-body ">
+                                    <div class="col-sm-12 row row-line " *ngIf="pageType !== 'detail'">
+                                        <div class=" col-sm-2 no-padding color-title ">{{display.ApprovalDecision}}:</div>
+                                        <div class="col-sm-10 row radio-label ">
+                                            <div class="col-sm-10 ">
+                                                <p-radioButton name="groupname " label="Approve " value="APPROVE" [(ngModel)]="scenceApprove.selectedValue "></p-radioButton>
+                                            </div>
+                                            <div class="col-sm-10 ">
+                                                <p-radioButton name="groupname " label="Return " value="RETURN" [(ngModel)]="scenceApprove.selectedValue "></p-radioButton>
+                                            </div>
+                                            <div class="col-sm-10 ">
+                                                <p-radioButton name="groupname " label="Deny " value="REJECT" [(ngModel)]="scenceApprove.selectedValue "></p-radioButton>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 row row-line " *ngIf="pageType !== 'detail'">
+                                        <div class="col-sm-2 no-padding color-title ">{{display.Remarks}}:</div>
+                                        <div class="col-sm-10 ">
+                                            <textarea [(ngModel)]="scenceApprove.approvalComment " name=" " id="
+                                        " cols="70 " rows="10 "></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 row row-line ">
+                                        <div class="col-sm-2 no-padding color-title ">Current Person:</div>
+                                        <div class="col-sm-10 ">
+                                            {{ taskData.assigneeName }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 row row-line ">
+                                        <div class="col-sm-2 no-padding color-title ">Current Activity:</div>
+                                        <div class="col-sm-10 ">
+                                            {{taskData.nodeName}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-accordionTab>
+                            <p-accordionTab class="my-table " [selected]="true " [header]="display.HistoricalApprovalRecord
+                                        " icon="fa fa-plus ">
+                                <app-dreams-table [history]="history " [historyData]="historyData " [tableCols]="historyTableCols "></app-dreams-table>
+                            </p-accordionTab>
+                        </p-accordion>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 标题 -->
+<ng-template #titleCell let-dataItem let-rowIndex="rowIndex ">
+    <a style="color:#0275d8; " [title]="dataItem.docName " [href]="dataItem.downloadUrl " target="_blank ">{{dataItem.docName}}</a>
+</ng-template>

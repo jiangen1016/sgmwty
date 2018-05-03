@@ -1,0 +1,50 @@
+<p-growl [(value)]="msgs"></p-growl>
+<div class="ibox-title noPrint">
+    <div class="bread-crumb float-left">
+        <i class="fa fa-bookmark"> </i>
+        /{{display.Workbench}}/{{display.CreateApplication}}
+    </div>
+    <div class="ibox-tools float-right">
+        <!-- <a href="javascript:;" class="close-btn">
+            <i class="fa fa-chevron-up"></i>{{display.Shrink}}</a> -->
+        <a href="javascript:;" (click)="search()">
+            <i class="fa fa-refresh"></i>{{display.Refresh}}</a>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+
+<p-growl></p-growl>
+
+<div class="my-apply-main noPrint">
+    <div class=" my-apply-inner background-defaults">
+        <div class="apply-item" *ngFor="let item of applyList">
+            <div (click)="openModal(item)">{{item.documentName}}</div>
+        </div>
+    </div>
+</div>
+
+<!-- 免费换油价格核算 -->
+<div bsModal [config]="modalConfig" #replaceModal="bs-modal" class="modal modal-key fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <app-replace-modal [pageType]="pageType" [brandList]="brandList" (_onModalClose)="closeModal($event)"></app-replace-modal>
+</div>
+<!-- 过期索赔申请表 -->
+<div bsModal [config]="modalConfig" #expiredModal="bs-modal" class="modal modal-key fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <app-expired-modal [pageType]="pageType" [brandList]="brandList" (_onModalClose)="closeModal($event)"></app-expired-modal>
+</div>
+<!-- 促销活动 -->
+<div bsModal [config]="modalConfig" #promotionsModal="bs-modal" class="modal modal-key fade" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <app-promotions-modal [pageType]="pageType" [brandList]="brandList" (_onModalClose)="closeModal($event)"></app-promotions-modal>
+</div>
+<!-- 质量销毁 -->
+<div bsModal [config]="modalConfig" #qualityModal="bs-modal" class="modal modal-key fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <app-quality-modal [pageType]="pageType" (_onModalClose)="closeModal($event)"></app-quality-modal>
+</div>
+<!-- 回运零件销毁 -->
+<div bsModal [config]="modalConfig" #returnModal="bs-modal" class="modal modal-key fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <app-return-modal [pageType]="pageType" (_onModalClose)="closeModal($event)"></app-return-modal>
+</div>
+<!-- 通用流程 -->
+<div bsModal [config]="modalConfig" #normalModal="bs-modal" class="modal modal-key fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <app-normal-modal [pageType]="pageType" (_onModalClose)="closeModal($event)"></app-normal-modal>
+</div>

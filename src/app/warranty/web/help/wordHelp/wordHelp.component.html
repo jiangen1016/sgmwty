@@ -1,0 +1,103 @@
+<div class="ibox-title">
+    <div class="bread-crumb float-left">
+        <i class="fa fa-bookmark"> </i>
+        /{{display.OnlineHelp}}/{{display.HelpDocument}}
+    </div>
+    <div class="ibox-tools float-right">
+        <a href="javascript:;" class="close-btn">
+            <i class="fa fa-chevron-up"></i>{{display.Shrink}}</a>
+        <a href="javascript:;" (click)="showDialog()">
+            <i class="fa fa-plus"></i>{{display.Add}}</a>
+        <a href="javascript:;" (click)="getHelpDocuments()">
+            <i class="fa fa-refresh"></i>{{display.Refresh}}</a>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+
+<!-- 附件上传 -->
+<p-dialog [(visible)]="showUploadDialog" [width]="800" [positionTop]="20">
+    <p-header>
+        {{display.UploadFile}}
+    </p-header>
+    <div class="row">
+        <div class="col-2 title required">{{display.name}}</div>
+        <div class="col-10">
+            <input type="text" [(ngModel)]="wordHelp.fileName" name="aliasName">
+        </div>
+        <div class="col-2 title required">{{display.File}}</div>
+        <div class="col-10">
+            <p-fileUpload #fileControlVQ name="files" mode="advanced" [url]="uploadUrl" (onUpload)="onUpload($event)">
+                <!-- <p-fileUpload name="file" [url]="uploadUrl" (onUpload)="onUpload($event)"> -->
+                <ng-template let-file pTemplate="file">
+                    <div class="ui-fileupload-files">
+                        <div class="ui-fileupload-row">
+                            <div>
+                                <img *ngIf="file.objectURL" [src]="file.objectURL" width="50">
+                            </div>
+                            <div>{{file.name}}</div>
+                            <div>
+                                <button pButton type="button" (click)="onRemove(file,'before')" icon="fa-close" title="删除"></button>
+                            </div>
+                            <div style="color:rgb(236, 18, 18)">{{display.Unupload}}</div>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <div *ngIf="uploadedFiles.length" class="ui-fileupload-files">
+                        <div *ngFor="let file of uploadedFiles;let i = index" class="ui-fileupload-row">
+                            <div>
+                                <a target="_blank" [href]="file.downloadUrl">{{file.name}}</a>
+                            </div>
+                            <div>
+                                <button pButton type="button" icon="fa-close" (click)="onRemove(file,'after',i)" title="删除"></button>
+                            </div>
+                            <div>
+                            </div>
+                            <div style="color:rgb(236, 18, 18)">{{file.fileMsg}}</div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-fileUpload>
+            <!-- (onUpload)="onUpload($event)" -->
+        </div>
+    </div>
+    <p-footer>
+        <button pButton type="button" (click)="addHelpDocument()" label="{{display.Confirm}}"></button>
+        <button pButton type="button" (click)="closeFileDialog()" label="{{display.Cancle}}" class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>
+
+<p-confirmDialog header="Attention" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+<form class="search-grounp-public">
+    <div class="row col-sm-12 row-margin">
+        <div class="col-sm-6 row ">
+            <div class="col-sm-4 search-title">
+                {{display.FileName}}
+            </div>
+            <div class="col-sm-6">
+                <input class="search-input-long" (keyup.enter)="getHelpDocuments()" type="text" name="attachmentName" [(ngModel)]="wordHelpListSearch.attachmentName">
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center col-sm-12 search-buttons">
+        <button class="btn btn-dafault" pButton type="button" label="{{display.Search}}" (click)="getHelpDocuments()"></button>
+        <button class="btn btn-dafault" pButton type="reset" label="{{display.Reset}}"></button>
+    </div>
+</form>
+
+<div class="my-table">
+    <app-dreams-table [loading]="loading" [tableConfig]="tableConfig" [tableCols]="tableCols" [tableData]="tableData" [totalRecords]="totalRecords"
+        (goDetail)="goDetail($event)" (editItem)="editItem($event)" (deleteItem)="deleteItem($event)" (pageParams)="tableGetPage($event)"></app-dreams-table>
+</div>
+
+<!-- 标题 -->
+<ng-template #titleCell let-dataItem let-rowIndex="rowIndex">
+    <a href="javascript:;" target="_blank" [href]="dataItem.downloadUrl" [title]="dataItem.fileName">{{dataItem.fileName}}</a>
+</ng-template>
+<!-- 操作 -->
+<ng-template #opationCell let-dataItem let-rowIndex="rowIndex">
+    <button pButton type="button" (click)="editItem(dataItem)" icon="fa-download" title="下载"></button>
+    <button pButton type="button" (click)="deleteItem(dataItem)" icon="fa-close" title="删除"></button>
+</ng-template>

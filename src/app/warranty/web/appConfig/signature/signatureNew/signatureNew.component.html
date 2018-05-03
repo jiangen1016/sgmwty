@@ -1,0 +1,119 @@
+<div class="ibox-title">
+    <div class="bread-crumb float-left">
+        <i class="fa fa-bookmark"> </i>
+        /{{display.ApplicationConfiguration}}/{{display.DictionaryConfiguration}}/{{display.DictionaryDetails}}
+    </div>
+    <div class="ibox-tools float-right">
+        <a href="javascript:;" (click)="signatureSave()">
+            <i class="fa fa-plus"></i>{{display.Save}}</a>
+        <a href="javascript:;" (click)="goBack()">
+            <i class="fa fa-undo"></i>{{display.back}}</a>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+
+<div class="signature">
+    <p-messages [(value)]="checkMsgs"></p-messages>
+    <div class="row row-margin">
+        <div class="col-sm-12 row">
+            <div class="col-2 text-right reqiured">角色</div>
+            <div class="col-4">
+                <select name="role" style="width:100%;" (change)="onRoleChange()" [(ngModel)]="signatureNew.roleCode" id="signatureRole">
+                    <option [value]=""></option>
+                    <option [value]="item.roleCode" *ngFor="let item of roleList">{{item.roleName}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-margin">
+        <div class="col-sm-12 row">
+            <div class="col-2 text-right reqiured">工号</div>
+            <div class="col-4">
+                <div (click)="showChooseDialog('transferPerson','single')" style="border: 1px solid #D5D5D5;
+                height: 100%;">{{!signatureNew.empId && signatureNew.userName ? '暂无工号' : signatureNew.empId }}</div>
+            </div>
+            <div class="col-sm-2 no-padding">
+                <span class="fa fa-search" (click)="showChooseDialog('transferPerson','single')"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-margin">
+        <div class="col-sm-12 row">
+            <div class="col-2 text-right reqiured">姓名</div>
+            <div class="col-4">
+                <div (click)="showChooseDialog('transferPerson','single')" style="border: 1px solid #D5D5D5;
+                height: 100%;">{{signatureNew.userName}}</div>
+            </div>
+            <div class="col-sm-2 no-padding">
+                <span class="fa fa-search" (click)="showChooseDialog('transferPerson','single')"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-margin" style="max-height: 50px;">
+        <div class="col-sm-12 row">
+            <div class="col-2 text-right reqiured">描述</div>
+            <div class="col-4">
+                <textarea style="width:100%;height:100%;resize:none;" name="description" id="" [(ngModel)]="signatureNew.description" cols="30"
+                    rows="10"></textarea>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row row-margin">
+        <div class="col-sm-12 row">
+            <div class="col-2 text-right reqiured">签名附件</div>
+            <div class="col-sm-4">
+                <p-fileUpload accept="image/*" invalidFileTypeMessageSummary="{{display.inVolid}}" invalidFileTypeMessageDetail="{{display.onlyImg}}"
+                    #fileControl name="files" mode="advanced" [url]="uploadUrl" (onSelect)="onSelect($event)" (onUpload)="onUpload($event)">
+
+                    <ng-template let-file pTemplate="file">
+                        <div class="ui-fileupload-files">
+                            <div class="ui-fileupload-row">
+                                <div>
+                                    <img *ngIf="file.objectURL" [src]="file.objectURL" width="100">
+                                </div>
+                                <div>{{file.name}}</div>
+                                <div>
+                                    <button pButton type="button" (click)="onRemove(file,'before')" icon="fa-close" title="删除"></button>
+                                </div>
+                                <div style="color:rgb(236, 18, 18)">{{display.Unupload}}</div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                        <div class="ui-fileupload-files">
+                            <div *ngFor="let file of uploadedFiles;let i = index" class="ui-fileupload-row">
+                                <div>
+                                    <img *ngIf="file.downloadUrl" [src]="file.downloadUrl" width="100">
+                                </div>
+                                <div>
+                                    <a target="_blank" [href]="file.downloadUrl">{{file.attachmentName}}</a>
+                                </div>
+                                <div>
+                                    <button pButton type="button" icon="fa-close" (click)="onRemove(file,'after',i)" title="删除"></button>
+                                </div>
+                                <div>
+                                </div>
+                                <div style="color:rgb(236, 18, 18)">{{file.fileMsg}}</div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-fileUpload>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog [(visible)]="showChoose" [width]="800" [contentStyle]="{'padding': 0}" [positionTop]="20">
+    <p-header>
+        {{display.Choose}}
+    </p-header>
+    <app-choose-modal [tableData]="tableData" [originData]="tableData" [tableCols]="tableCols" [selectionMode]="selectionMode"
+        (submit)="getChoose($event)" (close)="closeChoose($event)">
+    </app-choose-modal>
+</p-dialog>

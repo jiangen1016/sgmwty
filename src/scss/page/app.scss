@@ -1,0 +1,186 @@
+body {
+    // div {
+    //     color: red;
+    // }
+    .accordion-group {
+        a {
+            display: block;
+            color: #000;
+        }
+    }
+    .logo {
+        height: 55px;
+    }
+    .active-link {
+        color: red !important;
+    }
+    .main-content {
+        width: 100%;
+        padding: 0 !important;
+        margin-left: 250px;
+        transition: all .3s;
+    }
+    .main-content-inner {
+        height: 100%;
+        margin-top: 55px;
+    }
+    .main-meun {
+        position: fixed;
+        width: 250px;
+        height: 100%;
+        background: #1968ad;
+        z-index: 100;
+        left: 0;
+        transition: left 0.3s;
+    }
+    .ant-menu {
+        background: #1968ad !important; // font-size:100px !important;
+        color: #fff;
+    }
+    #nzMenu {
+        transition: all .3s;
+        .ant-menu-submenu-title {
+            &:after {
+                content: "" !important;
+            }
+        }
+        .nz-title {
+            font-size: 14px !important;
+        }
+        .nz-menu-item {
+            background-color: #0b4c86;
+            color: #fff;
+            font-size: 14px !important;
+            &:hover {
+                background-color: #687786;
+            }
+        }
+        .menu-select {
+            color: #2f8ee5 !important;
+            border: none !important;
+        }
+    }
+    p-panelmenu {
+        .ui-menu-list {
+            // margin-top: 10px !important;
+        }
+        .ui-panelmenu-header {
+            background-color: #1968ad !important;
+            border: none;
+            min-height: 42px;
+            line-height: 42px; // font-family: "Helvetica Neue For Number", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            >a {
+                color: #fff;
+                .ui-panelmenu {
+                    color: #1968ad !important;
+                }
+            }
+        }
+        .ui-panelmenu-content {
+            background-color: #0b4c86;
+            padding: 0 !important;
+            border: none;
+            overflow: hidden !important;
+        }
+        .ui-menuitem-link {
+            padding-left: 48px !important;
+            line-height: 36px !important;
+            color: #fff !important; // font-family: "Helvetica Neue For Number", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            &:hover {
+                background-color: #687786 !important;
+            }
+        }
+        .ui-menuitem .ui-state-active {
+            border: none !important;
+            background-color: #0b4c86 !important;
+            color: #2f8ee5 !important;
+        }
+        .fa-caret-right:before {
+            content: "" !important;
+        }
+        .fa-caret-down:before {
+            content: "" !important;
+        }
+        .ui-panelmenu .ui-menuitem {
+            margin: 0 !important;
+        }
+        .ui-panelmenu .ui-panelmenu-header:not(.ui-state-active):hover a {
+            color: #2f8ee5 !important;
+        }
+        .ui-panelmenu .ui-panelmenu-header.ui-state-active a {
+            background-color: #1968ad !important;
+        }
+    }
+    .ui-tabview .ui-tabview-nav {
+        padding: 0 !important;
+        li {
+            top: 0px !important;
+            margin-bottom: 0px !important;
+        }
+    }
+    p-tabview {
+        .ui-state-active a {
+            color: #fff;
+        }
+    }
+    p-calendar {
+        >span {
+            >input {
+                height: 1.4rem;
+            }
+        }
+        .ui-calendar-button {
+            >span {
+                margin-left: -.9em !important;
+            }
+        }
+    }
+    .modal-main-content {
+        border: 1px solid #C5DAF0 !important;
+        padding-top: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-bottom: 15px;
+    }
+    .first-body {
+        margin-bottom: 5px !important;
+    }
+    .file .ui-accordion-header-text ::after {
+        content: "*" !important;
+        float: right !important;
+        color: red !important;
+    } // a#ui-accordiontab-2 ::after {
+    //     content: "*" !important;
+    //     float: right !important;
+    //     color: red !important;
+    // }
+    // a#ui-accordiontab-18 ::after {
+    //     content: "*" !important;
+    //     float: right !important;
+    //     color: red !important;
+    // }
+    // a#ui-accordiontab-21 ::after {
+    //     content: "*" !important;
+    //     float: right !important;
+    //     color: red !important;
+    // }
+    // a#ui-accordiontab-14 ::after {
+    //     content: "*" !important;
+    //     float: right !important;
+    //     color: red !important;
+    // }
+    // a#ui-accordiontab-28 ::after {
+    //     content: "*" !important;
+    //     float: right !important;
+    //     color: red !important;
+    // }
+    .my-table table th {
+        text-align: center !important;
+    }
+    .fa-spinner {
+        font-size: 30px !important;
+        margin-top: 40px !important;
+    }
+}

@@ -1,0 +1,32 @@
+<p-fileUpload #fileControl name="files" mode="advanced" [url]="uploadConfig.uploadUrl" (onUpload)="onUpload($event)" multiple="uploadConfig.uploadMode"
+    (onSelect)="select()">
+    <ng-template let-file pTemplate="file">
+        <div class="ui-fileupload-files">
+            <div class="ui-fileupload-row">
+                <div>
+                    <img *ngIf="file.objectURL" [src]="file.objectURL" width="50">
+                </div>
+                <div>{{file.name}}</div>
+                <div>
+                    <button pButton type="button" *ngIf="!disabled" (click)="onRemove(file,'before')" icon="fa-close" title="删除"></button>
+                </div>
+                <div style="color:rgb(236, 18, 18)">{{display.Unupload}}</div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div *ngIf="uploadedFiles?.length" class="ui-fileupload-files">
+            <div *ngFor="let file of uploadedFiles;let i = index" class="ui-fileupload-row">
+                <div>
+                    <a target="_blank" [href]="file.downloadUrl">{{file.attachmentName}}</a>
+                </div>
+                <div>
+                    <button pButton type="button" *ngIf="!disabled" icon="fa-close" (click)="onRemove(file,'after',i)" title="删除"></button>
+                </div>
+                <div>
+                </div>
+                <div style="color:rgb(236, 18, 18)">{{file.fileMsg}}</div>
+            </div>
+        </div>
+    </ng-template>
+</p-fileUpload>

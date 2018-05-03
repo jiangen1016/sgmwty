@@ -1,0 +1,29 @@
+<div class="modal-dialog modal-primary modal-lg app-choose-modal" role="document">
+    <div class="modal-content ">
+        <div class="modal-header ">
+            <div class="modal-search-group ">
+                <input type="text" [(ngModel)]="searchStr" (ngModelChange)="searchTable()" class="modal-search-input ">
+                <span class="modal-search-input-icon fa fa-search "></span>
+            </div>
+        </div>
+
+        <!-- <div #scroller class="scroller" style="max-height: 300px;overflow-y:auto" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50"
+            [scrollWindow]="false" > -->
+        <!-- 单选表格 -->
+        <p-dataTable *ngIf="selectionMode == 'single'" [value]="tableData" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"
+            selectionMode="single" [(selection)]="selectedItem " (onRowSelect)="showSelect($event) ">
+            <p-column *ngFor="let col of tableCols" [field]="col.field " [header]="col.header " [style]="{width:col.width}"></p-column>
+        </p-dataTable>
+        <!-- 多选表格 -->
+        <p-dataTable *ngIf="selectionMode == 'multiple'" [value]="tableData" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"
+            selectionMode="selection" [(selection)]="selectedItem " (onRowSelect)="showSelect($event) ">
+            <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+            <p-column *ngFor="let col of tableCols" [field]="col.field " [header]="col.header " [style]="{width:col.width}"></p-column>
+        </p-dataTable>
+
+        <div class="modal-footer">
+            <button pButton type="button" (click)="chooseDialog() " label="{{display.Confirm}}"></button>
+            <button pButton type="button" class="ui-button-secondary" (click)="closeDialog()" label="{{display.Cancle}}"></button>
+        </div>
+    </div>
+</div>

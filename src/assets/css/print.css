@@ -1,0 +1,92 @@
+.pritin-content ol li {
+    list-style-type: decimal !important;
+    list-style-position: inside !important;
+    list-style: decimal !important;
+    /* font-size: 100px !important; */
+}
+
+.pritin-content ul li {
+    list-style-type: disc !important;
+    list-style: disc !important;
+    list-style-position: inside !important;
+}
+
+
+/* dreams-print ul {
+        margin: 0;
+        width: 100%;
+    }
+
+    dreams-print li {
+        margin: 0;
+        list-style: none !important;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        float: left;
+        padding-left: 10px;
+    }
+
+    dreams-print .main {
+        border: 1px solid #000 !important;
+    }
+
+    dreams-print .main .pritin-content .print-main-content {
+        margin: 0 !important;
+        min-height: 400px;
+        word-wrap: break-word;
+    }
+
+    dreams-print .main .pritin-content .print-main-content img {
+        max-width: 1066px;
+    }
+
+    dreams-print .main .pritin-content .fix-content {
+        margin: 20px;
+    }
+
+    dreams-print .print-header {
+        margin-bottom: 20px;
+        border: 0;
+    } */
+
+
+/* dreams-print .pritin-content ol {
+        display: block;
+        list-style-type: decimal !important;
+        list-style: decimal !important;
+        -webkit-margin-before: 1em;
+        -webkit-margin-after: 1em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        -webkit-padding-start: 40px;
+    }
+
+    dreams-print .pritin-content ul {
+        display: block;
+        list-style-type: disc !important;
+        list-style: disc !important;
+        -webkit-margin-before: 1em;
+        -webkit-margin-after: 1em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        -webkit-padding-start: 40px;
+    } */
+
+
+/* dreams-print ol ol ul,
+    ol ul ul,
+    ul ol ul,
+    ul ul ul {
+        list-style-type: square;
+    }
+
+    dreams-print ul ul,
+    ol ul {
+        list-style-type: circle;
+    } */
+
+dreams-print li {
+    margin: auto !important;
+    padding: auto !important;
+}

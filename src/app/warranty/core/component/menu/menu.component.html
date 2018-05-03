@@ -1,0 +1,59 @@
+<!-- <ul nz-menu [nzMode]="'inline'" id="nzMenu" >
+    
+    <li nz-submenu [(nzOpen)]="isOpenOne" (nzOpenChange)="openChange1('isOpenOne')">
+        <span title class="nz-title">
+            <i class="fa fa-desktop"></i>{{display.Workbench}}</span>
+        <ul>
+            <li class="nz-menu-item" [routerLinkActive]="'menu-select'" [routerLinkActive]="'menu-select'" [routerLink]="['/work/approve']" nz-menu-item >{{display.ApprovalList}}</li>
+            <li class="nz-menu-item" [routerLinkActive]="'menu-select'" [routerLink]="['/work/creat']" nz-menu-item>{{display.CreateApplication}}</li>
+            <li class="nz-menu-item" [routerLinkActive]="'menu-select'" [routerLink]="['/work/drafts']" nz-menu-item>{{display.DraftBox}}</li>
+            <li class="nz-menu-item" [routerLinkActive]="'menu-select'" [routerLink]="['/work/apply']" nz-menu-item>{{display.MyApplication}}</li>
+            <li class="nz-menu-item" [routerLinkActive]="'menu-select'" [routerLink]="['/work/track']" nz-menu-item>{{display.ApplicationTracking}}</li>
+            <li class="nz-menu-item" [routerLinkActive]="'menu-select'" [routerLink]="['/work/entrust']" nz-menu-item>{{display.OutAuthorization}}</li>
+            <li class="nz-menu-item" [routerLinkActive]="'menu-select'" [routerLink]="['/work/info']" nz-menu-item>{{display.OutAuthorization}}</li>
+        </ul>
+    </li>
+    <li nz-submenu [(nzOpen)]="isOpenTwo" (nzOpenChange)="openChange1('isOpenTwo')">
+        <span title class="nz-title">
+            <i class="fa fa-check-square-o"></i> {{display.BusinessProcessing}}</span>
+        <ul>
+            <li class="nz-menu-item" [nzSelected]="true" [routerLinkActive]="'menu-select'" [routerLink]="['/handle/handleBill']" nz-menu-item>{{display.DocumentProcessing}}</li>
+        </ul>
+    </li>
+    <li nz-submenu [(nzOpen)]="isOpenThree" (nzOpenChange)="openChange1('isOpenThree')">
+        <span title class="nz-title">
+            <i class="fa fa-cogs"></i>{{display.ApplicationConfiguration}}</span>
+        <ul>
+            <li class="nz-menu-item" [routerLinkActive]="'menu-select'" [routerLink]="['/config/role']" nz-menu-item>{{display.RoleConfiguration}}</li> -->
+            <!-- <li class="nz-menu-item" [routerLinkActive]="'menu-select'" [routerLink]="['/config/process']" nz-menu-item>流程配置</li> -->
+            <!-- <li class="nz-menu-item" [routerLinkActive]="'menu-select'" [routerLink]="['/config/word']" nz-menu-item>{{display.DictionaryConfiguration}}</li>
+        </ul>
+    </li>
+    <li nz-submenu [(nzOpen)]="isOpenFour" (nzOpenChange)="openChange1('isOpenFour')">
+        <span title class="nz-title">
+            <i class="fa fa-lock"></i>{{display.ManagementTool}}</span>
+        <ul>
+            <li class="nz-menu-item" [nzSelected]="true" [routerLinkActive]="'menu-select'" [routerLink]="['/admin/ProcessTranfer']" class="nz-menu-item"
+                [routerLinkActive]="'menu-select'" nz-menu-item>{{display.ProcessTransfer}}</li>
+        </ul>
+    </li>
+    <li nz-submenu [(nzOpen)]="isOpenFive" (nzOpenChange)="openChange1('isOpenFive')">
+        <span title class="nz-title">
+            <i class="fa fa-comments-o"></i>{{display.OnlineHelp}}</span>
+        <ul>
+            <li class="nz-menu-item" [nzSelected]="true" [routerLinkActive]="'menu-select'" [routerLink]="['/help/word-help']" l nz-menu-item>{{display.HelpDocument}}</li>
+        </ul>
+    </li> -->
+
+    <!-- 后台获取 -->
+    <!-- <li *ngFor="let menu of menuList;let i = index" nz-submenu [(nzOpen)]="menu['open'] && menu.open" (nzOpenChange)="openChange(i)">
+        <span title class="nz-title">
+            <i class="anticon anticon-setting"></i>{{menu.parentMenuInfo.menuName}}</span>
+        <ul>
+            <li *ngFor="let menuItem of menu.subMenuList" class="nz-menu-item" [routerLinkActive]="'menu-select'" [routerLink]="[menuItem.menuInfo.functionUrl]" l nz-menu-item>
+                {{menuItem.menuName}}</li>
+        </ul>
+    </li> -->
+<!-- </ul> -->
+
+<p-panelMenu [model]="displayMenuList" [style]="{'width':'250px'}"></p-panelMenu>
